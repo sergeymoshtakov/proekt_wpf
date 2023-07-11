@@ -1,0 +1,132 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:WpfApp1"
+        Title="Прогноз погоды" Height="450" Width="800">
+    <Window.DataContext>
+        <local:WeatherForecastVM/>
+    </Window.DataContext>
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="0 10"/>
+            <Setter Property="Padding" Value="10 5"/>
+            <Setter Property="Background" Value="#007ACC"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#00588C"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#00345C"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="0 10"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Background" Value="#F2F2F2"/>
+            <Setter Property="Foreground" Value="#333333"/>
+            <Setter Property="BorderBrush" Value="#CCCCCC"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="5">
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          Margin="0"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          Background="Transparent"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="0 20 0 0"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="#333333"/>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Margin="0 0 10 0">
+            <TextBlock Text="Введите название города:" VerticalAlignment="Center"/>
+            <TextBox x:Name="cityTextBox" Width="200" Text="{Binding CityName}" Margin="10 0 0 0"/>
+            <Button Content="Показать прогноз" Click="Button_Click" Margin="10 0 0 0"/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+            <TextBlock Text="{Binding ForecastText}" FontWeight="Bold" FontSize="20" Margin="0 0 0 10"/>
+            <Grid Margin="0 0 0 10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Температура:" FontWeight="Bold" Margin="0 0 10 0"/>
+                <TextBlock Text="{Binding Temperature}" Margin="5 0" Grid.Column="1"/>
+            </Grid>
+            <Grid Margin="0 0 0 10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Влажность:" FontWeight="Bold" Margin="0 0 10 0"/>
+                <TextBlock Text="{Binding Humidity}" Margin="5 0" Grid.Column="1"/>
+            </Grid>
+            <Grid Margin="0 0 0 10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Скорость ветра:" FontWeight="Bold" Margin="0 0 10 0"/>
+                <TextBlock Text="{Binding WindMph}" Margin="5 0" Grid.Column="1"/>
+            </Grid>
+            <Grid Margin="0 0 0 10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Местное время:" FontWeight="Bold" Margin="0 0 10 0"/>
+                <TextBlock Text="{Binding LocalTime}" Margin="5 0" Grid.Column="1"/>
+            </Grid>
+            <Grid Margin="0 0 0 10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Состояние:" FontWeight="Bold" Margin="0 0 10 0"/>
+                <TextBlock Text="{Binding Condition}" Margin="5 0" Grid.Column="1"/>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>
